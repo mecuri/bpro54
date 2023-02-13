@@ -1,11 +1,14 @@
 package com.keduit.bpro54.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.keduit.bpro54.security.service.ClubUserDetailsService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -14,8 +17,10 @@ import lombok.extern.log4j.Log4j2;
 
 public class SecurityConfig {
 	
+	@Autowired
+	private ClubUserDetailsService clubUserDetailsService;
 	
-	  // 비밀번호 암호화하기
+	 // 비밀번호 암호화하기
 	 @Bean 
 	 PasswordEncoder passwordEncoder() { // BCryptPasswordEncoder() : password 암호화 해서 돌려줌
 		 return new BCryptPasswordEncoder();

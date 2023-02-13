@@ -29,7 +29,7 @@ public class ClubMember {
 	private String name;
 	private boolean fromSocial;
 	
-	@ElementCollection(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY) // 별도의 키 없이 컬렉션 데이터 처리
 	@Builder.Default
 	private Set<ClubMemberRole> roleset = new HashSet<>();
 	

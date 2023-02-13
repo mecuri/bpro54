@@ -2,9 +2,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>exMember</title>
+<title>Member</title>
 </head>
 <body>
-	<h1>회원 전용 페이지입니다.</h1>
+	<h1>For Member</h1>
+	
+	<div sec:authorize="hasRole('USER')">Has USER ROLE</div>
+	<div sec:authorize="hasRole('MANAGER')">Has MANAGER ROLE</div>
+	<div sec:authorize="hasRole('ADMIN')">Has ADMIN ROLE</div>
+	
+	<div sec:authorize="isAuthenticated()">
+		Only Authenticated user can see this Text : 승인된 유저만 이 글을 볼 수 있어요
+	</div>
+	
+	Authenticated username:
+	<div sec:authentication="name"></div>
+	Authenticated user roles:
+	<div sec:authentication="principal.authrities"></div>
 </body>
 </html>
