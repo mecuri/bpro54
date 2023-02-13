@@ -1,5 +1,6 @@
 package com.keduit.bpro54.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,4 +33,15 @@ public class SampleController {
 	public void exAdmin() {
 		log.info("exAdmin---------------------------");
 	}
+	
+	// Custom Login Page Controller
+	@GetMapping("/login")
+	public void loginGet(String error, String logout) {
+		log.info("login get ----------------");
+		log.info("logout : " + logout);
+	}
+	
+	@PreAuthorize("hasRole('USER')") // @PreAuthorize : 미리 인증이 된 경우
+	@GetMapping("/register")
+	public void registerGet() {}
 }
