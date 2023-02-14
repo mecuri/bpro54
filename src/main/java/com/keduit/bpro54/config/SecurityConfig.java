@@ -8,7 +8,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.keduit.bpro54.security.handler.ClubLoginSuccessHandler;
 import com.keduit.bpro54.security.service.ClubUserDetailsService;
 
 import lombok.extern.log4j.Log4j2;
@@ -45,7 +47,15 @@ public class SecurityConfig {
 		http.csrf().disable();  // 로그인 할 때마다 csrf 토큰?이 새로 생성????하는걸 잠깐 꺼놓는 뭐?
 		http.logout();
 		
+//		http.oauth2Login().loginPage("/sample/login").successHandler(successHandler());
 		http.oauth2Login().loginPage("/sample/login");
+		http.rememberMe().tokenValiditySeconds(60*60*7).userDetailsService(clubUserDetailsService); // 자동 로그인 - 로그인 유지 시간 설정 
 		return http.build();
+	}
+
+	@Bean
+	public ClubLoginSuccessHandler successHandler() {
+
+		return new ClubLoginSuccessHandler(passwordEncoder());
 	}
 }
